@@ -7,10 +7,10 @@ import (
 )
 
 // Constants, Private
-var (
-	// errCouldNotStart arises when `Loop()` is run without running `Setup()` first.
-	errCouldNotStart = errors.New("Game: couldn't start the Game loop, set up the Game first")
-)
+// ErrCouldNotStart arises when `Loop()` is run without running `Setup()` first.
+func ErrCouldNotStart() error {
+	return errors.New("Game: couldn't start the Game loop, set up the Game first")
+}
 
 // Public
 
@@ -21,7 +21,7 @@ type again = bool
 // Loop prompts players to take turns.
 func Loop(g Game) (Game, again, error) {
 	if !g.isReady() {
-		return DeadGame(), false, errCouldNotStart
+		return DeadGame(), false, ErrCouldNotStart()
 	}
 	gam, more := turn(g, g.player1)
 	if !more {

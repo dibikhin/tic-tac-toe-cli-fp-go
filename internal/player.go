@@ -4,7 +4,7 @@ import "fmt"
 
 type player struct {
 	mark mark
-	num  int // 1 | 2; -1 is a dead player
+	num  int // 1 or 2; -1 is a dead player
 }
 
 func (p player) String() string {

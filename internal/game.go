@@ -7,18 +7,16 @@ import (
 )
 
 // Constants, Private
-var (
-	// ErrNilReader arises when `Setup()` is run with nil reader.
-	ErrNilReader = errors.New("game: the reader is nil, use a non-nil reader or nothing for the default one while setting up")
-)
+// ErrNilReader() arises when `Setup()` is run with nil reader.
+func ErrNilReader() error {
+	return errors.New("game: the reader is nil, use a non-nil reader or nothing for the default one while setting up")
+}
 
 type reader = func() string
 
 // Game
 
 type Game struct {
-	Logo Board
-
 	board   Board
 	player1 player
 	player2 player
@@ -44,7 +42,6 @@ func (g Game) Board() Board {
 // Pure
 func NewGame() Game {
 	return Game{
-		Logo:  _logo(),
 		board: _blankBoard(),
 
 		// the rest fields are omitted for flexibility
@@ -61,7 +58,7 @@ func SetPlayers(g Game, p1, p2 player) Game {
 
 func SetReader(g Game, r reader) (Game, error) {
 	if r == nil {
-		return DeadGame(), ErrNilReader
+		return DeadGame(), ErrNilReader()
 	}
 	g.read = r
 	return g, nil
@@ -82,20 +79,11 @@ func (g Game) isReady() bool {
 
 // IO
 
-func PrintLogo(s fmt.Stringer) {
-	fmt.Println()
-	fmt.Println(s)
-	fmt.Println()
-
-	fmt.Println("(Use `ctrl+c` to exit)")
-	fmt.Println()
-}
-
 func (g Game) ChooseMarks() (player, player, error) {
 	fmt.Print("Press 'x' or 'o' to choose mark for Player 1: ")
 
 	if g.read == nil {
-		return _deadPlayer(), _deadPlayer(), ErrNilReader
+		return _deadPlayer(), _deadPlayer(), ErrNilReader()
 	}
 	mark1 := g.read()
 	p1, p2 := arrangePlayers(mark1)

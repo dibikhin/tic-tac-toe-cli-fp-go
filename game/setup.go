@@ -1,8 +1,17 @@
 package game
 
 import (
+	"fmt"
 	. "tictactoe/internal"
 )
+
+// Constants, Private
+func _logo() Board {
+	return Board{
+		{"X", " ", "X"},
+		{"O", "X", "O"},
+		{"X", " ", "O"}}
+}
 
 // Setup initializes the game and helps players to choose marks.
 // The param is a strategy for user input to be stubbed.
@@ -22,7 +31,7 @@ func Setup(rs ...reader) (Game, error) {
 	if err != nil {
 		return DeadGame(), err
 	}
-	PrintLogo(gam.Logo)
+	printLogo(_logo())
 
 	defer gam.Print()
 	p1, p2, err := gam.ChooseMarks()
@@ -30,6 +39,17 @@ func Setup(rs ...reader) (Game, error) {
 		return DeadGame(), err
 	}
 	return SetPlayers(gam, p1, p2), nil
+}
+
+// IO
+
+func printLogo(s fmt.Stringer) {
+	fmt.Println()
+	fmt.Println(s)
+	fmt.Println()
+
+	fmt.Println("(Use `ctrl+c` to exit)")
+	fmt.Println()
 }
 
 // Private

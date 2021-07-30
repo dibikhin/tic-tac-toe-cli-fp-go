@@ -18,13 +18,6 @@ const (
 	_size = 3
 )
 
-func _logo() Board {
-	return Board{
-		{"X", " ", "X"},
-		{"O", "X", "O"},
-		{"X", " ", "O"}}
-}
-
 func _blankBoard() Board {
 	return Board{
 		{__, __, __},

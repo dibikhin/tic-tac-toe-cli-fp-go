@@ -34,7 +34,7 @@ func extractReader(rs []reader) (reader, error) {
 	case len(rs) < 1:
 		return nil, nil
 	case rs[0] == nil:
-		return nil, gam.ErrNilReader
+		return nil, gam.ErrNilReader()
 	default:
 		return rs[0], nil
 	}
