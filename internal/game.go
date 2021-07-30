@@ -8,23 +8,18 @@ import (
 
 // Constants, Private
 var (
-	// errNilReader arises when `Setup()` is run with nil reader.
-	errNilReader = errors.New("game: the reader is nil, pass a non-nil reader or nothing for the default one")
+	// ErrNilReader arises when `Setup()` is run with nil reader.
+	ErrNilReader = errors.New("game: the reader is nil, use a non-nil reader or nothing for the default one while setting up")
 )
 
-// User input strategy for stubbing in tests.
-//
-// NOTE: An interface is more idiomatic in this case. BUT it's overkill to define
-// a type with constructor, an interface and its fake implementation in tests vs. this
-// func, its impl and its fake impl in tests.
-type reader func() string
+type reader = func() string
 
 // Game
 
-type game struct {
-	logo board
+type Game struct {
+	Logo Board
 
-	board   board
+	board   Board
 	player1 player
 	player2 player
 
@@ -33,72 +28,61 @@ type game struct {
 
 // Constants
 
-func _deadGame() game {
-	return game{board: _deadBoard()}
+func DeadGame() Game {
+	return Game{board: _deadBoard()}
 }
 
 // Public
 
 // Pure
-func (g game) Board() board {
+func (g Game) Board() Board {
 	return g.board
 }
 
 // Private
 
 // Pure
-func newGame() game {
-	return game{
-		logo:  _logo(),
+func NewGame() Game {
+	return Game{
+		Logo:  _logo(),
 		board: _blankBoard(),
 
-		// the rest are omitted for flexibility
-	}
-}
-
-// Factory, Pure
-func makeGame(def, alt reader) (game, error) {
-	gam := newGame()
-	switch {
-	case alt != nil:
-		return setReader(gam, alt)
-	default:
-		return setReader(gam, def)
+		// the rest fields are omitted for flexibility
 	}
 }
 
 // Setters
 
-func setBoard(g game, b board) game {
-	g.board = b
-	return g
-}
-
-func setPlayers(g game, p1, p2 player) game {
+func SetPlayers(g Game, p1, p2 player) Game {
 	g.player1 = p1
 	g.player2 = p2
 	return g
 }
 
-func setReader(g game, r reader) (game, error) {
+func SetReader(g Game, r reader) (Game, error) {
 	if r == nil {
-		return _deadGame(), errNilReader
+		return DeadGame(), ErrNilReader
 	}
 	g.read = r
 	return g, nil
 }
 
+func setBoard(g Game, b Board) Game {
+	g.board = b
+	return g
+}
+
 // Pure
-func (g game) isReady() bool {
+func (g Game) isReady() bool {
 	return g.read != nil &&
 		!g.player1.isEmpty() &&
 		!g.player2.isEmpty() &&
 		!g.board.isEmpty()
 }
 
-// Setup() IO
+// IO
 
-func printLogo(s fmt.Stringer) {
+func PrintLogo(s fmt.Stringer) {
 	fmt.Println()
 	fmt.Println(s)
 	fmt.Println()
@@ -107,21 +91,32 @@ func printLogo(s fmt.Stringer) {
 	fmt.Println()
 }
 
-func (g game) chooseMarks() (player, player) {
+func (g Game) ChooseMarks() (player, player, error) {
 	fmt.Print("Press 'x' or 'o' to choose mark for Player 1: ")
 
+	if g.read == nil {
+		return _deadPlayer(), _deadPlayer(), ErrNilReader
+	}
 	mark1 := g.read()
 	p1, p2 := arrangePlayers(mark1)
-	return p1, p2
+	return p1, p2, nil
 }
 
-func (g game) print() {
+func (g Game) Print() {
 	fmt.Println()
 
 	fmt.Println(g.player1)
 	fmt.Println(g.player2)
 
 	g.board.print()
+}
+
+func printWinner(p player) {
+	fmt.Printf("%v won!\n", p)
+}
+
+func printDraw() {
+	fmt.Println("Draw!")
 }
 
 // Other

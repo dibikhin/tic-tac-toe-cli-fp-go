@@ -10,7 +10,7 @@ clean:
 
 test:
 	@echo "\nTesting..."
-	go test -v -coverpkg=./internal ./internal
+	go test -v -coverpkg=./internal ./game
 
 build:
 	@echo "\nBuilding..."
