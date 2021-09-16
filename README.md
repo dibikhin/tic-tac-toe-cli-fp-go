@@ -85,7 +85,7 @@ $ make start
   - no mocks (behavior), just stubs (state)
   - 90% code coverage
   - pure and atomic fns mainly (no IO tests)
-  - NOTE: The tests play the game itself too. See in the end after expanding the `Test` section of [the Github Actions job 'build'](https://github.com/dibikhin/tic-tac-toe-go/runs/2290602609?check_suite_focus=true)
+  - NOTE: The tests play the game itself too. See in the end after expanding the `Test` section of [the Github Actions job 'build'](https://github.com/dibikhin/tic-tac-toe-cli-fp-go/runs/3621329717?check_suite_focus=true)
 - Paradigm: OOP + FP principles, SRP enforced
 - Functional programming: a lot of pure fns; IO extracted but not isolated
 
