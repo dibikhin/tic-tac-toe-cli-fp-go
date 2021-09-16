@@ -1,6 +1,6 @@
-# Tic-tac-toe
+# Tic-tac-toe CLI FP Go
 
-A console 3x3 Tic-tac-toe for 2 friends.
+A console 3x3 Tic-tac-toe for 2 friends on Go, in terminal, using functional programming.
 
 [![GoReportCard example](https://goreportcard.com/badge/github.com/dibikhin/tic-tac-toe-go)](https://goreportcard.com/report/github.com/dibikhin/tic-tac-toe-go) [![Maintainability](https://api.codeclimate.com/v1/badges/229dc45729c3983e99a9/maintainability)](https://codeclimate.com/github/dibikhin/tic-tac-toe-go/maintainability) [![example branch parameter](https://github.com/dibikhin/tic-tac-toe-go/actions/workflows/go.yml/badge.svg?branch=main)](https://github.com/dibikhin/tic-tac-toe-go/actions/workflows/go.yml)
 
