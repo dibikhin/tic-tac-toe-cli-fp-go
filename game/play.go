@@ -16,11 +16,7 @@ func Play() error {
 	if err != nil {
 		return err
 	}
-	err = run(ctx)
-	if err != nil {
-		return err
-	}
-	return nil
+	return run(ctx)
 }
 
 func run(g Game) (err error) {
