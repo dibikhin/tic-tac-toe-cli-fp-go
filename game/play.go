@@ -16,7 +16,11 @@ func Play() error {
 	if err != nil {
 		return err
 	}
-	more := true
+	return run(ctx)
+}
+
+func run(g Game) (err error) {
+	ctx, more := g, true
 	for more {
 		ctx, more, err = Loop(ctx)
 		if err != nil {

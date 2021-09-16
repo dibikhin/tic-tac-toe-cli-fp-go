@@ -83,7 +83,7 @@ $ make start
   - an inner DI in the game loop (game ctx in `loop.go`)
 - Well-tested
   - no mocks (behavior), just stubs (state)
-  - ~90% code coverage
+  - 90% code coverage
   - pure and atomic fns mainly (no IO tests)
   - NOTE: The tests play the game itself too. See in the end after expanding the `Test` section of [the Github Actions job 'build'](https://github.com/dibikhin/tic-tac-toe-go/runs/2290602609?check_suite_focus=true)
 - Paradigm: OOP + FP principles, SRP enforced
