@@ -33,12 +33,13 @@ func Setup(rs ...reader) (Game, error) {
 	}
 	printLogo(_logo())
 
-	defer gam.Print()
 	p1, p2, err := gam.ChooseMarks()
 	if err != nil {
 		return DeadGame(), err
 	}
-	return SetPlayers(gam, p1, p2), nil
+	g := SetPlayers(gam, p1, p2)
+	g.Print()
+	return g, nil
 }
 
 // IO
