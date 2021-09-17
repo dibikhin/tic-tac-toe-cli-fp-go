@@ -18,12 +18,12 @@ Get someone and play locally in your terminal using keyboard only. Cannot play w
 Not needed, runs as is, just clone:
 ```
 $ cd my_projects/
-$ git clone https://github.com/dibikhin/tic-tac-toe-go.git
+$ git clone https://github.com/dibikhin/tic-tac-toe-cli-fp-go.git
 ```
 
 ## Running the tests
 ```
-$ cd tic-tac-toe-go/
+$ cd tic-tac-toe-cli-fp-go/
 $ make test
 ...
 >PASS
@@ -34,7 +34,7 @@ NOTE: The tests play the game itself too, scroll to see.
 
 ## Running
 ```
-$ cd tic-tac-toe-go/
+$ cd tic-tac-toe-cli-fp-go/
 $ make run
 > Hey! This is 3x3 Tic-tac-toe for 2 friends :)
 >
@@ -49,7 +49,7 @@ NOTE: Hit `ctrl+c` to exit.
 
 ## Building & Starting
 ```
-$ cd tic-tac-toe-go/
+$ cd tic-tac-toe-cli-fp-go/
 $ make
 >Testing...
 >...
