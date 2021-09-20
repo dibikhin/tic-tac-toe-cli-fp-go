@@ -7,7 +7,8 @@ import (
 type (
 	Board [_size][_size]mark
 
-	mark = string // to avoid conversions
+	_board = [][_size]string
+	mark   = string // to avoid conversions
 )
 
 // Constants, Private
@@ -22,25 +23,38 @@ func _blankBoard() Board {
 	return Board{
 		{__, __, __},
 		{__, __, __},
-		{__, __, __}}
+		{__, __, __},
+	}
 }
 
 func _deadBoard() Board {
 	return Board{
 		{x_X, x_X, x_X},
 		{x_X, x_X, x_X},
-		{x_X, x_X, x_X}}
+		{x_X, x_X, x_X},
+	}
 }
 
 // Public
 
 func (b Board) String() string {
-	var dump []string
-	for _, row := range b {
-		s := strings.Join(row[:], " ")
-		dump = append(dump, s)
-	}
+	_, dump := reduce(b[:], []string{})
 	return strings.Join(dump, "\n")
+}
+
+// WARN: Recursive. Just for fun
+func reduce(board _board, rows []string) ([][]string, []string) {
+	if len(board) == 0 {
+		return [][]string{}, rows
+	}
+	row := joinRow(board)
+	d := append(rows, row)
+	return reduce(board[1:], d)
+}
+
+func joinRow(board _board) string {
+	row := board[0][:]
+	return strings.Join(row, " ")
 }
 
 // Private
@@ -68,7 +82,7 @@ func (b Board) isFilled(c cell) bool {
 	return b[c.row][c.col] != __
 }
 
-// Pure
+// Pure, no more recursive fun
 func (b Board) hasEmpty() bool {
 	for _, row := range b {
 		for _, m := range row {
