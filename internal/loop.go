@@ -19,16 +19,16 @@ func ErrCouldNotStart() error {
 type again = bool
 
 // Loop prompts players to take turns.
-func Loop(g Game) (Game, again, error) {
-	if !g.isReady() {
+func Loop(gm Game) (Game, again, error) {
+	if !gm.isReady() {
 		return DeadGame(), false, ErrCouldNotStart()
 	}
-	gam, more := turn(g, g.player1)
+	game, more := turn(gm, gm.player1)
 	if !more {
-		return gam, false, nil
+		return game, false, nil
 	}
-	gam, more = turn(gam, gam.player2)
-	return gam, more, nil
+	g, more := turn(game, game.player2)
+	return g, more, nil
 }
 
 // Private
